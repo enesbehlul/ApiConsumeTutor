@@ -1,0 +1,28 @@
+﻿@model List<Bukimedia.PrestaSharp.Entities.address>;
+@{ Layout = "_Layout"; ViewBag.Title = "All Reservations";}
+
+<h2>PrestaSharp tutorial</h2>
+
+<table class="table table-sm table-striped table-bordered m-2">
+    <thead><tr><th>ID</th><th>City</th><th>adres 1</th><th>adres 2</th><th>Update</th><th>Delete</th></tr></thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.id</td>
+                <td>@r.city</td>
+                <td>@r.address1</td>
+                <td>@r.address2</td>
+                <td>
+                    <a asp-action="UpdateReservation" asp-route-id="@r.id"><img src="/icon/edit.png" /></a>
+                </td>
+                <td>
+                    <form asp-action="DeleteReservation" method="post">
+                        <input type="hidden" value="@r.id" name="ReservationId" />
+                        <input type="image" src="/icon/close.png" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
