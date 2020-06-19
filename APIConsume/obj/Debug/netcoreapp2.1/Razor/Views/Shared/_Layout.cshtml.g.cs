@@ -52,7 +52,7 @@ using APIConsume.Models;
             WriteLiteral("<!DOCTYPE html>\r\n\r\n<html>\r\n");
             EndContext();
             BeginContext(27, 192, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "00b6c714ac0e4d9d8e5be6709ffc5bdd", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "64ff677dc9fb4aa0a88cfce24554dfe9", async() => {
                 BeginContext(33, 72, true);
                 WriteLiteral("\r\n    <meta name=\"viewport\" content=\"width=device-width\" />\r\n    <title>");
                 EndContext();
@@ -67,7 +67,7 @@ using APIConsume.Models;
                 WriteLiteral("</title>\r\n    ");
                 EndContext();
                 BeginContext(133, 77, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "a7735c273ff54a1490367bc58dd05236", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "51194a7ae2534d099d449e0e8dfa642b", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_LinkTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper>();
@@ -102,7 +102,7 @@ using APIConsume.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(221, 85, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "306e42f80eea457bbb08ee553fefb2f8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2dd34bec733e42b0952cb31927056fe7", async() => {
                 BeginContext(227, 45, true);
                 WriteLiteral("\r\n    <div class=\"container-fluid\">\r\n        ");
                 EndContext();

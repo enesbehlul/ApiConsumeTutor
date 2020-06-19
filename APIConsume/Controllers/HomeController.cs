@@ -21,10 +21,12 @@ namespace APIConsume.Controllers
         string Password = "";
 
         private readonly AddressFactory _addressFactory;
-        
+        private readonly CustomerFactory _customerFactory;
+
 
         public HomeController()
         {
+            _customerFactory = new CustomerFactory(BaseUrl, Account, Password);
             _addressFactory = new AddressFactory(BaseUrl, Account, Password);
         }
 
@@ -40,23 +42,91 @@ namespace APIConsume.Controllers
             return View(_addressFactory.GetAll());
         }
 
-        [HttpPost]
-        public Bukimedia.PrestaSharp.Entities.address Post([FromBody] Bukimedia.PrestaSharp.Entities.address address)
+        bool adresMinumunGereksinimleriSagliyorMu(Bukimedia.PrestaSharp.Entities.address address)
         {
-            var a = 10;
-            var _address = new Bukimedia.PrestaSharp.Entities.address
+            if(address.id_customer == null || address.id_country == null)
             {
-                id_country = address.id_country,
-                alias = address.alias,
-                lastname = address.lastname,
-                firstname = address.firstname,
-                address1 = address.address1,
-                city = address.city
-            };
 
-            _addressFactory.Add(_address);
-            return _address;
+            }
+            return false;
+        }
+
+        public IActionResult CreateAddress()
+        {
+         return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateAddress([FromForm] Bukimedia.PrestaSharp.Entities.address address)
+        {
+            try
+            {
+                _addressFactory.Add(address);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest();
+            }
+            
+            return Ok();
         } 
 
+        public IActionResult CreateCustomer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCustomer([FromForm] Bukimedia.PrestaSharp.Entities.customer customer)
+        {
+            try
+            {
+                _customerFactory.Add(customer);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult UpdateCustomer(int id)
+        {
+            var musteri = _customerFactory.Get(id);
+            if (musteri == null)
+            {
+                return BadRequest();
+            }
+
+            return View(musteri);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateCustomer([FromForm] Bukimedia.PrestaSharp.Entities.customer customer)
+        {
+
+            var musteri = _customerFactory.Get((long)customer.id);
+            if (musteri == null)
+            {
+                return BadRequest();
+            }
+
+            _customerFactory.Update(customer);
+            return Ok();
+        }
+
+        public IActionResult DeleteCustomer(long id)
+        {
+            var musteri = _customerFactory.Get(id);
+            if (musteri == null)
+            {
+                return BadRequest();
+            }
+
+            _customerFactory.Delete(musteri);
+            return Ok();
+        }
     }
 }

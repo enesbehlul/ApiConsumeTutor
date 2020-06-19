@@ -1,0 +1,189 @@
+﻿@model Bukimedia.PrestaSharp.Entities.customer
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdateCustomer</title>
+</head>
+<body>
+
+<h4>Customer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateCustomer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="date_add" class="control-label"></label>
+                <input asp-for="date_add" class="form-control" />
+                <span asp-validation-for="date_add" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="last_passwd_gen" class="control-label"></label>
+                <input asp-for="last_passwd_gen" class="form-control" />
+                <span asp-validation-for="last_passwd_gen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="newsletter_date_add" class="control-label"></label>
+                <input asp-for="newsletter_date_add" class="form-control" />
+                <span asp-validation-for="newsletter_date_add" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="active" class="control-label"></label>
+                <input asp-for="active" class="form-control" />
+                <span asp-validation-for="active" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="show_public_prices" class="control-label"></label>
+                <input asp-for="show_public_prices" class="form-control" />
+                <span asp-validation-for="show_public_prices" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="is_guest" class="control-label"></label>
+                <input asp-for="is_guest" class="form-control" />
+                <span asp-validation-for="is_guest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="newsletter" class="control-label"></label>
+                <input asp-for="newsletter" class="form-control" />
+                <span asp-validation-for="newsletter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="optin" class="control-label"></label>
+                <input asp-for="optin" class="form-control" />
+                <span asp-validation-for="optin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="deleted" class="control-label"></label>
+                <input asp-for="deleted" class="form-control" />
+                <span asp-validation-for="deleted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="note" class="control-label"></label>
+                <input asp-for="note" class="form-control" />
+                <span asp-validation-for="note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="max_payment_days" class="control-label"></label>
+                <input asp-for="max_payment_days" class="form-control" />
+                <span asp-validation-for="max_payment_days" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="outstanding_allow_amount" class="control-label"></label>
+                <input asp-for="outstanding_allow_amount" class="form-control" />
+                <span asp-validation-for="outstanding_allow_amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="secure_key" class="control-label"></label>
+                <input asp-for="secure_key" class="form-control" />
+                <span asp-validation-for="secure_key" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ip_registration_newsletter" class="control-label"></label>
+                <input asp-for="ip_registration_newsletter" class="form-control" />
+                <span asp-validation-for="ip_registration_newsletter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="date_upd" class="control-label"></label>
+                <input asp-for="date_upd" class="form-control" />
+                <span asp-validation-for="date_upd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ape" class="control-label"></label>
+                <input asp-for="ape" class="form-control" />
+                <span asp-validation-for="ape" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="company" class="control-label"></label>
+                <input asp-for="company" class="form-control" />
+                <span asp-validation-for="company" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="website" class="control-label"></label>
+                <input asp-for="website" class="form-control" />
+                <span asp-validation-for="website" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="birthday" class="control-label"></label>
+                <input asp-for="birthday" class="form-control" />
+                <span asp-validation-for="birthday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="firstname" class="control-label"></label>
+                <input asp-for="firstname" class="form-control" />
+                <span asp-validation-for="firstname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="lastname" class="control-label"></label>
+                <input asp-for="lastname" class="form-control" />
+                <span asp-validation-for="lastname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="passwd" class="control-label"></label>
+                <input asp-for="passwd" class="form-control" />
+                <span asp-validation-for="passwd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_gender" class="control-label"></label>
+                <input asp-for="id_gender" class="form-control" />
+                <span asp-validation-for="id_gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_risk" class="control-label"></label>
+                <input asp-for="id_risk" class="form-control" />
+                <span asp-validation-for="id_risk" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_shop_group" class="control-label"></label>
+                <input asp-for="id_shop_group" class="form-control" />
+                <span asp-validation-for="id_shop_group" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_shop" class="control-label"></label>
+                <input asp-for="id_shop" class="form-control" />
+                <span asp-validation-for="id_shop" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_lang" class="control-label"></label>
+                <input asp-for="id_lang" class="form-control" />
+                <span asp-validation-for="id_lang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_default_group" class="control-label"></label>
+                <input asp-for="id_default_group" class="form-control" />
+                <span asp-validation-for="id_default_group" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id" class="control-label"></label>
+                <input asp-for="id" class="form-control" />
+                <span asp-validation-for="id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="siret" class="control-label"></label>
+                <input asp-for="siret" class="form-control" />
+                <span asp-validation-for="siret" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>
