@@ -42,6 +42,39 @@ namespace APIConsume.Controllers
             return View(_addressFactory.GetAll());
         }
 
+        public IActionResult GetAddressById(int id)
+        {
+            try
+            {
+                var address = _addressFactory.Get(id);
+                return Ok(address);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }            
+        }
+
+        public IActionResult GetAddressByCity([FromQuery]string city)
+        {
+            ////var address = _addressFactory.GetAll().FirstOrDefault(a => a.city.ToLower().StartsWith(city.ToLower()));
+            var filter = new Dictionary<string, string>
+            {
+                { "city", city.ToLower() }
+            };
+
+            try
+            {
+                var address2 = _addressFactory.GetByFilter(filter, null, null);
+                return Ok(address2);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }            
+        }
+
+        // bu method sonradan gelistirilecek simdi erken
         bool adresMinumunGereksinimleriSagliyorMu(Bukimedia.PrestaSharp.Entities.address address)
         {
             if(address.id_customer == null || address.id_country == null)
@@ -61,6 +94,7 @@ namespace APIConsume.Controllers
         {
             try
             {
+                // minumum requirement saglanmiyorsa catch'e dusecek
                 _addressFactory.Add(address);
             }
             catch (Exception exception)
@@ -70,6 +104,20 @@ namespace APIConsume.Controllers
             
             return Ok();
         } 
+
+        public IActionResult DeleteAddress(int id)
+        {
+            try
+            {
+                var address = _addressFactory.Get(id);
+                _addressFactory.Delete(address);
+                return Ok(address);
+            }
+            catch (Bukimedia.PrestaSharp.PrestaSharpException)
+            {
+                return BadRequest();
+            }
+        }
 
         public IActionResult CreateCustomer()
         {
@@ -81,52 +129,58 @@ namespace APIConsume.Controllers
         {
             try
             {
+                // minumum requirement saglanmiyorsa catch'e dusecek
+                // daha once ayni id'ye sahip satir var mi diye bakmiyoruz cunku db zaten id'yi otomatik atiyor
                 _customerFactory.Add(customer);
             }
             catch (Exception exception)
             {
                 return BadRequest();
             }
-
             return Ok();
         }
 
         [HttpGet]
         public IActionResult UpdateCustomer(int id)
         {
-            var musteri = _customerFactory.Get(id);
-            if (musteri == null)
+            try
+            {
+                var musteri = _customerFactory.Get(id);
+                return View(musteri);
+            }
+            catch (Exception)
             {
                 return BadRequest();
             }
-
-            return View(musteri);
         }
 
         [HttpPost]
         public IActionResult UpdateCustomer([FromForm] Bukimedia.PrestaSharp.Entities.customer customer)
         {
-
-            var musteri = _customerFactory.Get((long)customer.id);
-            if (musteri == null)
+            try
+            {
+                var musteri = _customerFactory.Get((long)customer.id);
+                _customerFactory.Update(customer);
+                return Ok(customer);
+            }
+            catch (Exception)
             {
                 return BadRequest();
             }
-
-            _customerFactory.Update(customer);
-            return Ok();
         }
 
         public IActionResult DeleteCustomer(long id)
         {
-            var musteri = _customerFactory.Get(id);
-            if (musteri == null)
+            try
+            {
+                var musteri = _customerFactory.Get(id);
+                _customerFactory.Delete(musteri);
+                return Ok();
+            }
+            catch (Exception)
             {
                 return BadRequest();
             }
-
-            _customerFactory.Delete(musteri);
-            return Ok();
         }
     }
 }
