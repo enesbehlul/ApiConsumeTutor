@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
@@ -182,5 +183,20 @@ namespace APIConsume.Controllers
                 return BadRequest();
             }
         }
+
+        // burada PrestaSharp kutuphanesini kullanmadan prestashop webservice'ini kullanmayi deneyecegim
+        public async Task<IActionResult> Index3Async()
+        {
+            var url = "http://localhost/prestashop/api/addresses/1";
+            var handler = new HttpClientHandler { Credentials = new NetworkCredential(Account, "") };
+            var client = new HttpClient(handler);
+            HttpResponseMessage response;
+            response = await client.GetAsync(url);
+
+            var a = await client.GetAsync(url);
+
+            return Ok(a.Content.ReadAsStringAsync());
+        }
+
     }
 }
