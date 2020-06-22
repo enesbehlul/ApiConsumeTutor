@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using APIConsume.Models;
 using Bukimedia.PrestaSharp.Factories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -18,21 +21,23 @@ namespace APIConsume.Controllers
     public class HomeController : Controller
     {
         string BaseUrl = "http://localhost/prestashop/api";
-        string Account = "RGRTYILCBUQATME8E352ZRRX7QVRLLDJ";
+        string apiKey = "RGRTYILCBUQATME8E352ZRRX7QVRLLDJ";
         string Password = "";
 
         private readonly AddressFactory _addressFactory;
         private readonly CustomerFactory _customerFactory;
+        private readonly CartFactory _cartFactory;
 
 
         public HomeController()
         {
-            _customerFactory = new CustomerFactory(BaseUrl, Account, Password);
-            _addressFactory = new AddressFactory(BaseUrl, Account, Password);
+            _customerFactory = new CustomerFactory(BaseUrl, apiKey, Password);
+            _addressFactory = new AddressFactory(BaseUrl, apiKey, Password);
+            _cartFactory = new CartFactory(BaseUrl, apiKey, Password);
         }
 
         // GET: /<controller>/
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Addresses()
         {
             //Bukimedia.PrestaSharp.Entities.manufacturer Manufacturer = _ManufacturerFactory.Get(6);
             //Manufacturer.name = "Iron Maiden";
@@ -120,6 +125,12 @@ namespace APIConsume.Controllers
             }
         }
 
+        // GET: /<controller>/
+        public async Task<IActionResult> Customers()
+        {
+            return View(_customerFactory.GetAll());
+        }
+
         public IActionResult CreateCustomer()
         {
             return View();
@@ -184,18 +195,80 @@ namespace APIConsume.Controllers
             }
         }
 
-        // burada PrestaSharp kutuphanesini kullanmadan prestashop webservice'ini kullanmayi deneyecegim
-        public async Task<IActionResult> Index3Async()
+        // GET: /<controller>/
+        public async Task<IActionResult> Carts()
         {
-            var url = "http://localhost/prestashop/api/addresses/1";
-            var handler = new HttpClientHandler { Credentials = new NetworkCredential(Account, "") };
-            var client = new HttpClient(handler);
-            HttpResponseMessage response;
-            response = await client.GetAsync(url);
+            return View(_cartFactory.GetAll());
+        }
 
-            var a = await client.GetAsync(url);
 
-            return Ok(a.Content.ReadAsStringAsync());
+        // burada PrestaSharp kutuphanesini kullanmadan prestashop webservice'ini kullanmayi deneyecegim
+        // bu satirdan itibaren bu sekilde
+        public Task<IActionResult> Index3Async()
+        {
+            var url = "http://localhost/prestashop/api/addresses/2";
+
+
+            return Execute(url, "GET", null);
+
+            //return Ok(xmlData);
+        }
+
+        private async Task<IActionResult> Execute(string url, string method, XDocument document = null)
+        {
+            string header = String.Empty;
+            string data = String.Empty;
+
+            //string mediaType = (IOFormat.JSON == this.IO_FORMAT) ? "text/json" : "text/xml";
+            string mediaType = "text/xml";
+
+            using (var handler = new HttpClientHandler { Credentials = new NetworkCredential(this.apiKey, "") })
+            using (var client = new HttpClient(handler))
+            {
+                HttpResponseMessage response;
+                HttpContent content;
+
+                try
+                {
+                    switch (method.ToUpper())
+                    {
+                        case "GET":
+                            response = await client.GetAsync(url);
+                            break;
+                        case "POST":
+                            response = await client.PostAsync(url, new StringContent(document.ToString(), Encoding.UTF8, mediaType));
+                            break;
+                        case "PUT":
+                            response = await client.PutAsync(url, new StringContent(document.ToString(), Encoding.UTF8, mediaType));
+                            break;
+                        case "DELETE":
+                            response = await client.DeleteAsync(url);
+                            break;
+                        case "HEAD":
+                            response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, url));
+                            break;
+                        default:
+                            throw new Exception("Invalid Http Method provided. GET, POST, PUT, DELETE, HEAD are valid");
+                            break;
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    throw new Exception("An error occured while sending the request");
+                }
+
+                header = response.Headers.ToString() + "\n";
+
+                if (response != null)
+                {
+                    content = response.Content;
+                    data = await content.ReadAsStringAsync();
+                }
+
+                response.Dispose();
+            }
+
+            return Ok(data);
         }
 
     }
