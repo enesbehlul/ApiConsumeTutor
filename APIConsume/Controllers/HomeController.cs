@@ -128,7 +128,7 @@ namespace APIConsume.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Customers()
         {
-            return View(_customerFactory.GetAll());
+            return Ok(_customerFactory.GetAll());
         }
 
         public IActionResult CreateCustomer()
@@ -198,7 +198,7 @@ namespace APIConsume.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Carts()
         {
-            return View(_cartFactory.GetAll());
+            return Ok(_cartFactory.GetAll());
         }
 
 

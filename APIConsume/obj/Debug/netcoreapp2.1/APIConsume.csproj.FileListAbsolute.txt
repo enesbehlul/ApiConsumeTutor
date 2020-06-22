@@ -23,9 +23,9 @@ C:\Users\behlul\source\repos\APIConsume\APIConsume\bin\Debug\netcoreapp2.1\APICo
 C:\Users\behlul\source\repos\APIConsume\APIConsume\bin\Debug\netcoreapp2.1\APIConsume.Views.pdb
 C:\Users\behlul\source\repos\APIConsume\APIConsume\obj\Debug\netcoreapp2.1\APIConsume.Views.pdb
 C:\Users\behlul\source\repos\APIConsume\APIConsume\obj\Debug\netcoreapp2.1\APIConsume.csproj.CopyComplete
-C:\Users\behlul\source\repos\APIConsume\APIConsume\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\behlul\source\repos\APIConsume\APIConsume\obj\Debug\netcoreapp2.1\APIConsume.genruntimeconfig.cache
 C:\Users\behlul\source\repos\APIConsume\APIConsume\obj\Debug\netcoreapp2.1\APIConsume.csproj.CoreCompileInputs.cache
 C:\Users\behlul\source\repos\APIConsume\APIConsume\obj\Debug\netcoreapp2.1\Razor\Views\Home\CreateAddress.cshtml.g.cs
 C:\Users\behlul\source\repos\APIConsume\APIConsume\obj\Debug\netcoreapp2.1\Razor\Views\Home\CreateCustomer.cshtml.g.cs
 C:\Users\behlul\source\repos\APIConsume\APIConsume\obj\Debug\netcoreapp2.1\Razor\Views\Home\UpdateCustomer.cshtml.g.cs
+C:\Users\behlul\source\repos\APIConsume\APIConsume\obj\Debug\netcoreapp2.1\Razor\Views\Home\Addresses.cshtml.g.cs
