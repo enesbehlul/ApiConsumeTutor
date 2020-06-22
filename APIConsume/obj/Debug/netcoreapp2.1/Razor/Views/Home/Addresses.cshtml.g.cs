@@ -107,7 +107,7 @@ using APIConsume.Models;
             WriteLiteral("</td>\r\n                <td>\r\n                    ");
             EndContext();
             BeginContext(592, 87, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f3237f59f130425db9d8050a698891b9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0f67ae6e5b06472b8df33de747a4aae8", async() => {
                 BeginContext(647, 28, true);
                 WriteLiteral("<img src=\"/icon/edit.png\" />");
                 EndContext();
@@ -142,7 +142,7 @@ using APIConsume.Models;
             WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
             EndContext();
             BeginContext(746, 234, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "97781f3071d344149b3cdcdf03d22217", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c58a3503bc4f42aca0d3d84e45d4de88", async() => {
                 BeginContext(797, 46, true);
                 WriteLiteral("\r\n                        <input type=\"hidden\"");
                 EndContext();

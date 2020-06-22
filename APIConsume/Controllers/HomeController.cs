@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using APIConsume.Models;
 using Bukimedia.PrestaSharp.Factories;
 using Microsoft.AspNetCore.Http;
@@ -90,14 +92,24 @@ namespace APIConsume.Controllers
             return false;
         }
 
-        public IActionResult CreateAddress()
-        {
-         return View();
-        }
+        //public IActionResult CreateAddress()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
-        public IActionResult CreateAddress([FromForm] Bukimedia.PrestaSharp.Entities.address address)
+        public IActionResult CreateAddress([FromBody] Bukimedia.PrestaSharp.Entities.address address)
         {
+            //var doc = new XmlDocument();
+            //doc.Load(request.Content.ReadAsStringAsync().Result);
+            //string xmlString = doc.DocumentElement.OuterXml;
+            //XmlSerializer serializer = new XmlSerializer(typeof(Bukimedia.PrestaSharp.Entities.address), new XmlRootAttribute("address"));
+            //StringReader stringReader = new StringReader(xmlString);
+
+            //Bukimedia.PrestaSharp.Entities.address address = (Bukimedia.PrestaSharp.Entities.address)serializer.Deserialize(stringReader);
+
+
+            var a = 10;
             try
             {
                 // minumum requirement saglanmiyorsa catch'e dusecek
@@ -199,6 +211,50 @@ namespace APIConsume.Controllers
         public async Task<IActionResult> Carts()
         {
             return Ok(_cartFactory.GetAll());
+        }
+
+        [HttpPost]
+        public IActionResult CreateCart([FromBody] Bukimedia.PrestaSharp.Entities.cart cart)
+        {
+            try
+            {
+                // minumum requirement saglanmiyorsa catch'e dusecek
+                // daha once ayni id'ye sahip satir var mi diye bakmiyoruz cunku db zaten id'yi otomatik atiyor
+                _cartFactory.Add(cart);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult UpdateCart(int id)
+        {
+            try
+            {
+                var cart = _cartFactory.Get(id);
+                return Ok(cart);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        public IActionResult DeleteCart(long id)
+        {
+            try
+            {
+                var cart = _cartFactory.Get(id);
+                _cartFactory.Delete(cart);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
 
