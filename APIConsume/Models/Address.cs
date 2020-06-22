@@ -7,7 +7,13 @@ namespace APIConsume.Models
 {
     public class Address
     {
+        //// <summary>
+        ////  merhaba
+        //// </summary>
+        public Address()
+        {
 
+        }
         public int deleted { get; set; }
         public string dni { get; set; }
         public string phone_mobile { get; set; }

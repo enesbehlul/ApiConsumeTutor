@@ -63,7 +63,8 @@ namespace APIConsume.Controllers
             }            
         }
 
-        public IActionResult GetAddressByCity([FromQuery]string city)
+        [HttpGet("/Home/GetAddressByCity/{city}")]
+        public IActionResult GetAddressByCity(string city)
         {
             ////var address = _addressFactory.GetAll().FirstOrDefault(a => a.city.ToLower().StartsWith(city.ToLower()));
             var filter = new Dictionary<string, string>
@@ -149,7 +150,7 @@ namespace APIConsume.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCustomer([FromForm] Bukimedia.PrestaSharp.Entities.customer customer)
+        public IActionResult CreateCustomer([FromBody] Bukimedia.PrestaSharp.Entities.customer customer)
         {
             try
             {
@@ -227,11 +228,12 @@ namespace APIConsume.Controllers
                 return BadRequest();
             }
             return Ok();
-        }
+            }
 
         [HttpGet]
         public IActionResult UpdateCart(int id)
         {
+            Address a = new Address();
             try
             {
                 var cart = _cartFactory.Get(id);
