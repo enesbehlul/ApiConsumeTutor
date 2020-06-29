@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APIConsume.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class CartController : Controller
     {
         private readonly CartFactory _cartFactory;
@@ -21,13 +23,13 @@ namespace APIConsume.Controllers
         }
 
         // GET: /<controller>/
-        [HttpGet("/Carts/")]
+        [HttpGet("/[controller]/")]
         public async Task<IActionResult> Carts()
         {
             return Ok(_cartFactory.GetAll());
         }
 
-        [HttpGet("/Carts/{id}")]
+        [HttpGet("/[controller]/{id}")]
         public IActionResult Carts(int id)
         {
             try
@@ -41,7 +43,7 @@ namespace APIConsume.Controllers
             }
         }
 
-        [HttpPost("/Carts/")]
+        [HttpPost("/[controller]/")]
         public IActionResult Carts([FromBody] Bukimedia.PrestaSharp.Entities.cart cart)
         {
             try
@@ -57,7 +59,7 @@ namespace APIConsume.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("/[controller]/UpdateCart/")]
         public IActionResult UpdateCart([FromBody] Bukimedia.PrestaSharp.Entities.cart cart)
         {
             try
@@ -73,7 +75,7 @@ namespace APIConsume.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("/[controller]/DeleteCart/{id}")]
         public IActionResult DeleteCart(long id)
         {
             try

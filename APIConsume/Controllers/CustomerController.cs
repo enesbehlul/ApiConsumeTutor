@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APIConsume.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class CustomerController : Controller
     {
         private readonly CustomerFactory _customerFactory;
@@ -27,7 +29,7 @@ namespace APIConsume.Controllers
         }
 
 
-        [HttpGet("/Home/Customers/{id}")]
+        [HttpGet("/[controller]/{id}")]
         public IActionResult Customers(int id)
         {
             try
@@ -42,7 +44,7 @@ namespace APIConsume.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("/[controller]/")]
         public IActionResult Customers([FromBody] Bukimedia.PrestaSharp.Entities.customer customer)
         {
             try
@@ -59,7 +61,7 @@ namespace APIConsume.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("/[controller]/UpdateCustomer")]
         public IActionResult UpdateCustomer([FromBody] Bukimedia.PrestaSharp.Entities.customer customer)
         {
             try
@@ -74,7 +76,7 @@ namespace APIConsume.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("/[controller]/DeleteCustomer")]
         public IActionResult DeleteCustomer(long id)
         {
             try

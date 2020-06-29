@@ -20,6 +20,8 @@ using Newtonsoft.Json;
 
 namespace APIConsume.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class AddressController : Controller
     {
         string BaseUrl = "http://localhost/prestashop/api";
@@ -28,10 +30,6 @@ namespace APIConsume.Controllers
 
         private readonly AddressFactory _addressFactory;
         
-        
-
-
-
 
         public AddressController()
         {
@@ -46,7 +44,7 @@ namespace APIConsume.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpGet("/[controller]")]
         public async Task<IActionResult> Addresses()
         {
             //Bukimedia.PrestaSharp.Entities.manufacturer Manufacturer = _ManufacturerFactory.Get(6);
@@ -58,7 +56,7 @@ namespace APIConsume.Controllers
             return View(_addressFactory.GetAll());
         }
 
-        [HttpGet("/Address/Addresses/{id}")]
+        [HttpGet("/[controller]/{id}")]
         public IActionResult Addresses(int id)
         {
             try
@@ -92,7 +90,7 @@ namespace APIConsume.Controllers
         //    }
         //}
 
-        [HttpPost]
+        [HttpPost("/[controller]")]
         public IActionResult Addresses([FromBody] Bukimedia.PrestaSharp.Entities.address address)
         {
             try
@@ -108,7 +106,7 @@ namespace APIConsume.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("/[controller]/UpdateAddress")]
         public IActionResult UpdateAddress([FromBody] Bukimedia.PrestaSharp.Entities.address address)
         {
             try
@@ -123,7 +121,7 @@ namespace APIConsume.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("/[controller]/DeleteAddress/{id}")]
         public IActionResult DeleteAddress(int id)
         {
             try
