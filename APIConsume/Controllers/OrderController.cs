@@ -64,7 +64,7 @@ namespace APIConsume.Controllers
             //}
 
 
-                orderFactory.Add(order);
+            orderFactory.Add(order);
 
             return Ok(order);
         }
