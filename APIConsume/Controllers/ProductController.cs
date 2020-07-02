@@ -42,51 +42,59 @@ namespace APIConsume.Controllers
         }
 
         [HttpPost("/[controller]/UpdateOrInsertProduct/")]
-        public IActionResult UpdateOrInsertProduct([FromBody] Bukimedia.PrestaSharp.Entities.product mikroProduct)
+        public IActionResult UpdateOrInsertProduct([FromBody] List<Bukimedia.PrestaSharp.Entities.product> mikroProductList)
         {
-            Boolean degisiklikVarMi = false;
+            Boolean degisiklikVarMi = false;          
 
             var filter = new Dictionary<string, string>
             {
-                { "isbn", mikroProduct.isbn + "" }
+                { "isbn", null }
             };
 
-            // isbn'si ortusen productlar geliyor, unic oldugu icin 1 tane gelecek eger tabloda varsa
-            var products = productFactory.GetByFilter(filter, null, null);
+            List<Bukimedia.PrestaSharp.Entities.product> prestaProductList;
 
-            Bukimedia.PrestaSharp.Entities.product prestaProduct = null;
+            foreach (var mikroProduct in mikroProductList){
+                degisiklikVarMi = false;
 
-            // getByFilter'dan dizi donuyor, eger bossa mikroProduct mikroya yeni eklenmis bir urundur
-            if (products.Count != 0)
-            {
-                // dizi bos degil, isbn de unic oldugu icin ilk elemani aliyoruz
-                prestaProduct = products[0];
+                filter["isbn"] = mikroProduct.isbn;
+                // isbn'si ortusen productlar geliyor, unic oldugu icin 1 tane gelecek eger tabloda varsa
+                prestaProductList = productFactory.GetByFilter(filter, null, null);
 
-                // urunun isminde degisiklik varsa guncelliyoruz
-                if (prestaProduct.name[0].Value != mikroProduct.name[0].Value)
+                Bukimedia.PrestaSharp.Entities.product prestaProduct = null;
+                // getByFilter'dan dizi donuyor, eger bossa mikroProduct mikroya yeni eklenmis bir urundur
+                if (prestaProductList.Count != 0)
                 {
-                    prestaProduct.name[0].Value = mikroProduct.name[0].Value;
-                    degisiklikVarMi = true;
-                }
-                // yine urunun fiyatinda degisiklik varsa guncelliyoruz
-                if (prestaProduct.price != mikroProduct.price)
-                {
-                    prestaProduct.price = mikroProduct.price;
-                    degisiklikVarMi = true;
+                    // dizi bos degil, isbn de unic oldugu icin ilk elemani aliyoruz
+                    prestaProduct = prestaProductList[0];
+
+                    // urunun isminde degisiklik varsa guncelliyoruz
+                    if (prestaProduct.name[0].Value != mikroProduct.name[0].Value)
+                    {
+                        prestaProduct.name[0].Value = mikroProduct.name[0].Value;
+                        degisiklikVarMi = true;
+                    }
+
+                    // yine urunun fiyatinda degisiklik varsa guncelliyoruz
+                    if (prestaProduct.price != mikroProduct.price)
+                    {
+                        prestaProduct.price = mikroProduct.price;
+                        degisiklikVarMi = true;
+                    }
+
+                    if (degisiklikVarMi)
+                    {
+                        productFactory.Update(prestaProduct);
+                    }
                 }
 
-                if (degisiklikVarMi)
+                // eger buraya girerse bu urun mikroya yeni eklenmis bir urun, o halde prestashop'a ekliyoruz
+                else
                 {
-                    productFactory.Update(prestaProduct);
+                    productFactory.Add(mikroProduct);
                 }
+
             }
-            // eger buraya girerse bu urun mikroya yeni eklenmis bir urun, o halde prestashop'a ekliyoruz
-            else
-            {
-                productFactory.Add(mikroProduct);
-            }
-                        
-            return Ok(prestaProduct);
+            return Ok();
         }
     }
 }
